@@ -1,0 +1,51 @@
+body,h1,h2,button{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color:rgb(13, 15, 15);
+    display: grid;
+    height: 100vh;
+    width: 100%;
+}
+.main-container{
+    display: inline-flex;
+    
+}
+.main-container > .center-container{
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid blueviolet;
+  display: grid;
+    justify-items: center;
+    
+}
+.main-container > .center-container > h1{
+    color: bisque;
+}
+
+.main-container > .center-container > .random-btn{
+    width: 120px;
+    height: 50px;
+    border: 1px solid chartreuse;
+    /* background-color: rgb(51, 0, 85); */
+    color: rgba(0, 243, 81, 0.932);
+    align-items: center;
+    font-size: 26px;
+    display: grid;
+    margin-top: 20px;
+    
+    
+}
+.main-container > .center-container > .random-btn:hover{
+    background-color: blueviolet;
+    cursor: pointer;
+    transition: 400ms;
+}
+.main-container > .center-container > .random-btn:active{
+    background-color: rgb(255, 255, 255);
+    color: re;
+    cursor: pointer;
+    transition: 400ms;
+}
