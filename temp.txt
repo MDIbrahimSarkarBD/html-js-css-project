@@ -1,1 +1,3 @@
-temp.txt
+gh auth login
+gh repo create <repository-name>
+gh repo create <repository-name> --private --description "My new repository"
