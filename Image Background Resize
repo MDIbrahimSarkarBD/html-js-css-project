@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Resizer</title>
+
+  <STYle>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow: hidden;
+      background-color: #875ffe;
+      position: fixed;
+    }
+
+    li {
+      float: left;
+    }
+
+    li a,
+    .dropbtn {
+      display: inline-block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    li a:hover,
+    .dropdown:hover .dropbtn {
+      background-color: rgb(116, 62, 255);
+    }
+
+    li.dropdown {
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  </STYle>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .container {
+      top: 80px;
+      position: absolute;
+      width: 100%;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      background-color: #fcfcfc;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+      width: 600px;
+      height: 260px;
+      background-color: #ffffff;
+      padding: 10px 30px 40px;
+      float: left;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      font-weight: 600;
+
+    }
+
+    .drop_box {
+      margin: 10px 0;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border: 3px dotted #a3a3a3;
+      border-radius: 5px;
+    }
+
+    .drop_box h4 {
+      font-size: 16px;
+      font-weight: 400;
+      color: #2e2e2e;
+    }
+
+    .drop_box p {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 12px;
+      color: #a3a3a3;
+    }
+
+    .btn {
+      text-decoration: none;
+      background-color: #005af0;
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      text-decoration: none;
+      background-color: #ffffff;
+      color: #005af0;
+      padding: 10px 20px;
+      border: none;
+      outline: 1px solid #010101;
+    }
+
+    .form input {
+      margin: 10px 0;
+      width: 100%;
+      background-color: #e2e2e2;
+      border: none;
+      outline: none;
+      padding: 12px 20px;
+      border-radius: 4px;
+    }
+
+    #dropZone {
+      width: 300px;
+      height: 300px;
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      text-align: center;
+      line-height: 300px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+  </style>
+  <STyle>
+  select {
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+}
+  </STyle>
+</head>
+
+<body>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#news">News</a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+      <div class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </li>
+  </ul>
+  </ul>
+  <div class="container" id="uploadFileDropID">
+    <div class="card">
+      <h3>Upload Files</h3>
+      <div class="drop_box">
+        <header>
+          <h4>Select File here</h4>
+        </header>
+        <p>Files Supported: jpg, jpeg, png </p>
+        <input type="file" hidden accept="image/*" id="imageInput" style="display:none;">
+        <button class="btn" style="clear: left;">Choose File</button>
+      </div>
+
+    </div>
+     <div id="imageContainer" style="margin-top: 40PX; margin-bottom: 20PX;"></div>
+    <div style="display: flex; flex-direction: row; gap: 20PX;">
+
+     
+      <select id="sizeSelect" class="custom-select">
+        <option value="500">500px</option>
+        <option value="1000">1000px</option>
+        <option value="1500">1500px</option>
+        <option value="200">200px</option>
+        <option value="100">100px</option>
+        <option value="50">50px</option>
+      </select>
+      <button onclick="resizeImage()">Resize Image</button>
+
+    </div>
+
+  </div>
+
+
+
+
+  <script>
+    function dropZone(uploadFileDropID) {
+      const dropZone = document.getElementById(uploadFileDropID);
+
+      // Add event listener for the dragover event
+      dropZone.addEventListener('dragover', function (event) {
+        event.preventDefault();
+      });
+
+      // Add event listener for the drop event
+      dropZone.addEventListener('drop', function (event) {
+        event.preventDefault();
+        const files = event.dataTransfer.files;
+        handleFiles(files);
+      });
+    }
+    dropZone('uploadFileDropID')
+
+
+
+
+
+    function handleFiles(files) {
+      const file = files[0];
+      if (!file.type.startsWith('image/')) {
+        alert('Only image files are allowed.');
+        return;
+      }
+      uploadImage('imageContainer', file);
+
+      //displayImage(file);
+
+    }
+
+    function displayImage(file) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const imageURL = event.target.result;
+        const imageElement = document.createElement('img');
+        imageElement.src = imageURL;
+        imageElement.style.maxWidth = '100%';
+        document.body.appendChild(imageElement);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    const dropArea = document.querySelector(".drop_box"),
+      button = dropArea.querySelector("button"),
+      dragText = dropArea.querySelector("header"),
+      input = dropArea.querySelector("input");
+    let file;
+    var filename;
+
+    button.onclick = () => {
+      input.click();
+    };
+
+    input.addEventListener("change", function (e) {
+      uploadImage('imageContainer', 'imageInput');
+      var fileName = e.target.files[0].name;
+      let filedata = `
+          <form action="" method="post">
+          <div class="form">
+          <h4>${fileName}</h4>
+          <input type="email" placeholder="Enter email upload file">
+          <button class="btn">Upload</button>
+          </div>
+          </form>`;
+      dropArea.innerHTML = filedata;
+
+    });
+    function uploadImage(imageViewlocationID, imageInputID) {
+      if (typeof imageInputID === 'undefined') return;
+
+      let files;
+      if (typeof imageInputID === 'string') {
+        const input = document.getElementById(imageInputID);
+        if (!input || !input.files || input.files.length === 0) return;
+        files = input.files[0];
+      } else {
+        files = imageInputID;
+      }
+
+      if (!files || !files.type.startsWith('image/')) {
+        alert('Please select an image file.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const imageURL = event.target.result;
+        const imageElement = document.querySelector(`#${imageViewlocationID} img`);
+        if (imageElement) {
+          imageElement.src = imageURL;
+        } else {
+          const newImageElement = document.createElement('img');
+          newImageElement.src = imageURL;
+          newImageElement.style.width = '200px';
+          newImageElement.style.height = '200px';
+          document.getElementById(imageViewlocationID).appendChild(newImageElement);
+        }
+      };
+      reader.readAsDataURL(files);
+    }
+
+
+    // Event listener for file input change
+    document.getElementById('fileInput').addEventListener('change', function (e) {
+      uploadImage('imageContainer', e.target);
+    });
+
+
+    function resizeImage() {
+      const imageElement = document.querySelector('#imageContainer img');
+      if (!imageElement) return;
+
+      const size = document.getElementById('sizeSelect').value;
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+
+      canvas.width = size;
+      canvas.height = size;
+
+      context.drawImage(imageElement, 0, 0, size, size);
+
+      const resizedImageURL = canvas.toDataURL('image/jpeg');
+      const link = document.createElement('a');
+      link.href = resizedImageURL;
+      link.download = 'resized_image.jpg';
+      link.click();
+    }
+
+  </script>
+</body>
+
+</html>
